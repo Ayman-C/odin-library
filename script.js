@@ -13,18 +13,28 @@ const test1= new Book("toto","Maurice Jean","230",true);
 const test2= new Book("layla","Eric Clap","130",false);
 const test3= new Book("L'art du Oud","Amin Maalof","510",true);
 let myLibrary= [test1,test2,test3];
-let bookShelf=document.querySelector(".bookShelf");
+const bookShelf=document.querySelector(".bookShelf");
+const inputs=document.getElementsByName("inputs")
+
+
+displayBooks(myLibrary);
+const bookCollection=document.querySelectorAll(".title");
+const bookInfoCollection=document.querySelectorAll(".info");
+clickDisplayInfo();
 
 function addBookToLibrary(book) {
     return myLibrary.includes(book) ? myLibrary : myLibrary.push(book)
   }
 
-
-
-displayBooks(myLibrary);
-let bookCollection=document.querySelectorAll(".title");
-let bookInfoCollection=document.querySelectorAll(".info");
-clickDisplayInfo();
+function retrieveInputs() { 
+    let inputArray=[];
+    for (let i=0; i <inputs.length-1;i++) {
+        inputArray[i]=inputs[i].value;
+    }
+    inputArray[inputs.length-1]=inputs[inputs.length-1].checked;
+    
+    return inputArray;
+}
 
 
 function displayBooks(library) {
