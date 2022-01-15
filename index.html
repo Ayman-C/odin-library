@@ -8,7 +8,35 @@
 </head>
 <body>
     <h1>my little bookshelf</h1>
-    <div class="bookShelf"></div>    
+    <div class="libraryContainer">
+        <form class="newBookForm" method="post">
+            <ul>
+                <li>
+                    <label for="newTitle">Title:</label>
+                    <input type="text" id="newTitle" name="inputs">
+                </li>
+                <li>
+                    <label for="newAuthor">Author:</label>
+                    <input type="text" id="newAuthor" name="inputs">
+                </li>
+                <li>
+                    <label for="newPages">Number of pages:</label>
+                    <input type="text" id="newNumberPages" name="inputs">
+                </li>
+                <li>    
+                    <label for="bookRead">Read?</label>
+                    <label class="switch">
+                        <input type="checkbox" id="bookRead" name="inputs">
+                        <span class="slider round"></span>
+                    </label>
+                </li>
+                <li class="button">
+                    <button type="submit">Store book</button>
+                </li>
+            </ul>
+        </form>
+        <div class="bookShelf"></div> 
+    </div>   
 </body>
 <footer>Created by Ayman.</footer>
 </html>
