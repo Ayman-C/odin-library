@@ -9,17 +9,19 @@ Book.prototype.info=function() {
 }
 
 //let myLibrary= [];
-const test1= new Book("toto","Maurice Jean","230",true);
-const test2= new Book("layla","Eric Clap","130",false);
-const test3= new Book("L'art du Oud","Amin Maalof","510",true);
-let myLibrary= [test1,test2,test3];
+const sample1= new Book("To Kill a Mockingbird","Harper Lee","281",true);
+const sample2= new Book("The Catcher in the Rye","J. D Salinger","277",true);
+const sample3= new Book("The Sound and the Fury","William Faulkner","326",false);
+let myLibrary= [sample1,sample2,sample3];
+
+// Generates HTML elements for each book 
 const bookShelf=document.querySelector(".bookShelf");
-const inputs=document.getElementsByName("inputs")
-
-
+const inputs=document.getElementsByName("inputs");
+const submitButton=document.getElementById("submitData");
 displayBooks(myLibrary);
+
+// Add click eventListener on book title to display info 
 const bookCollection=document.querySelectorAll(".title");
-const bookInfoCollection=document.querySelectorAll(".info");
 clickDisplayInfo();
 
 function addBookToLibrary(book) {
@@ -32,10 +34,8 @@ function retrieveInputs() {
         inputArray[i]=inputs[i].value;
     }
     inputArray[inputs.length-1]=inputs[inputs.length-1].checked;
-    
     return inputArray;
 }
-
 
 function displayBooks(library) {
    for (let book in library) {
@@ -71,6 +71,14 @@ function hideBookInfo(ident) {
     document.getElementById("info"+ident).style.display="none";
 }
 
+function clickDisplayInfo() {
+    bookCollection.forEach(item => {
+        item.addEventListener("click",evt=> {
+            toggleInfoDisplay(evt.target)
+        })
+    })
+}
+
 function toggleInfoDisplay(book) {
     info=document.getElementById(book.id).nextElementSibling
     if(info.style.display==="none"){
@@ -80,19 +88,3 @@ function toggleInfoDisplay(book) {
         info.style.display="none";
     }
 } 
-
-function clickDisplayInfo() {
-    bookCollection.forEach(item => {
-        item.addEventListener("click",evt=> {
-            toggleInfoDisplay(evt.target)
-        })
-    })
-}
-
-
-
-
-
-
-
-
