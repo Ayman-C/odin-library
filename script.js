@@ -19,6 +19,7 @@ const bookShelf=document.querySelector(".bookShelf");
 const inputs=document.getElementsByName("inputs");
 const submitButton=document.getElementById("submitData");
 displayBooks(myLibrary);
+clickSubmitBook();
 
 // Add click eventListener on book title to display info 
 const bookCollection=document.querySelectorAll(".title");
@@ -88,3 +89,12 @@ function toggleInfoDisplay(book) {
         info.style.display="none";
     }
 } 
+
+function clickSubmitBook() {
+    submitButton.addEventListener("click",function() {
+        console.log("submit clicked")
+        let newBook= new Book(...retrieveInputs());
+        addBookToLibrary(newBook);
+        displayBooks([newBook]);
+    })
+}
