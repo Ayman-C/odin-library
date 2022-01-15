@@ -15,28 +15,15 @@ const sample3= new Book("The Sound and the Fury","William Faulkner","326",false)
 let myLibrary= [sample1,sample2,sample3];
 
 // Generates HTML elements for each book 
-let bookCounter=0;
 const bookShelf=document.querySelector(".bookShelf");
 const inputs=document.getElementsByName("inputs");
 const submitButton=document.getElementById("submitData");
-displayAllBooks(myLibrary);
-clickSubmitBook();
 
-// Add click eventListener on book title to display info 
-//let bookCollection=document.querySelectorAll(".title");
-//clickDisplayInfo();
+initDisplay()
 
-function addBookToLibrary(book) {
-    return myLibrary.includes(book) ? myLibrary : myLibrary.push(book)
-  }
-
-function retrieveInputs() { 
-    let inputArray=[];
-    for (let i=0; i <inputs.length-1;i++) {
-        inputArray[i]=inputs[i].value;
-    }
-    inputArray[inputs.length-1]=inputs[inputs.length-1].checked;
-    return inputArray;
+function initDisplay() {
+    displayAllBooks(myLibrary);
+    clickSubmitBook();
 }
 
 function displayAllBooks(library) {
@@ -47,31 +34,33 @@ function displayAllBooks(library) {
 }
 
 function displayBook(book,ident) {
-    createBookContainer(ident);
-    createBookTitle(book,ident);
-    createBookInfo(book,ident);
+    BookContainer(ident);
+    BookTitle(book,ident);
+    BookInfo(book,ident);
     hideBookInfo(ident);
     clickDisplayInfo(ident);
 }
 
-function createBookContainer(ident) {
-    createSubContainer("book",ident,bookShelf);
+//Structure DOM elements for book data displayed in two divs title & info within a book div  
+function BookContainer(ident) {
+    newContainer("book",ident,bookShelf);
     newBookContainer=document.querySelector("#book"+ident);
-    createSubContainer("title",ident,newBookContainer);
-    createSubContainer("info",ident,newBookContainer);
+    newContainer("title",ident,newBookContainer);
+    newContainer("info",ident,newBookContainer);
 }
 
-function createSubContainer(containerClassName,ident,parentContainer) {
+//Create div container with attrivutes
+function newContainer(containerClassName,ident,parentContainer) {
     let dataContainer=document.createElement("div");
     dataContainer.classList.add(containerClassName);
     dataContainer.id=containerClassName+ident;
     parentContainer.appendChild(dataContainer);
 }
 
-function createBookTitle(book,ident) {
+function BookTitle(book,ident) {
     document.getElementById("title"+ident).textContent=book.title;
 }
-function createBookInfo(book,ident) {
+function BookInfo(book,ident) {
     document.getElementById("info"+ident).textContent=book.info();
 }
 
@@ -79,15 +68,7 @@ function hideBookInfo(ident) {
     document.getElementById("info"+ident).style.display="none";
 }
 
-
-// function clickDisplayInfo() {
-//     bookCollection.forEach(item => {
-//         item.addEventListener("click",evt=> {
-//             toggleInfoDisplay(evt.target);
-//         })
-//     })
-// }
-
+//Use on click eventListener to toggle book's info display
 function clickDisplayInfo(ident) {
     document.getElementById("title"+ident).addEventListener("click",evt=> {
         toggleInfoDisplay(evt.target);
@@ -104,13 +85,26 @@ function toggleInfoDisplay(book) {
     }
 } 
 
+//Create book from Form using constructor, update myLibrary
 function clickSubmitBook() {
     submitButton.addEventListener("click",function() {
         console.log("submit clicked")
         let newBook= new Book(...retrieveInputs());
         addBookToLibrary(newBook);
         displayBook(newBook,myLibrary.length);
-        
-      
     })
 }
+
+//Get inputs from Form
+function retrieveInputs() { 
+    let inputArray=[];
+    for (let i=0; i <inputs.length-1;i++) {
+        inputArray[i]=inputs[i].value;
+    }
+    inputArray[inputs.length-1]=inputs[inputs.length-1].checked;
+    return inputArray;
+}
+
+function addBookToLibrary(book) {
+    return myLibrary.includes(book) ? myLibrary : myLibrary.push(book)
+  }
