@@ -50,7 +50,9 @@ function bookContainer(ident) {
     newBookContainer=document.querySelector("#book"+ident);
     newContainer("title",ident,newBookContainer,"div");
     newContainer("info",ident,newBookContainer,"div");
-    newContainer("delete",ident,newBookContainer,"button")
+    newContainer("read",ident,newBookContainer,"button");
+    newContainer("delete",ident,newBookContainer,"button");
+    delButtonContent(ident);
 }
 
 //Create div container with attrivutes
@@ -66,6 +68,9 @@ function bookTitle(book,ident) {
 }
 function bookInfo(book,ident) {
     document.getElementById("info"+ident).textContent=book.info();
+}
+function delButtonContent(ident) {
+    document.getElementById("delete"+ident).textContent="X";
 }
 
 function hideBookInfo(ident) {
