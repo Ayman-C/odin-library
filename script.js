@@ -33,16 +33,16 @@ function displayAllBooks(library) {
 }
 
 function displayBook(book,ident) {
-    BookContainer(ident);
-    BookTitle(book,ident);
-    BookInfo(book,ident);
+    bookContainer(ident);
+    bookTitle(book,ident);
+    bookInfo(book,ident);
     hideBookInfo(ident);
     clickDisplayInfo(ident);
-   // clickDeleteBook(ident);
+    clickDeleteBook(ident);
 }
 
 //Structure DOM elements for book data displayed in two divs title & info and a delete button within a book div  
-function BookContainer(ident) {
+function bookContainer(ident) {
     newContainer("book",ident,bookShelf,"div");
     newBookContainer=document.querySelector("#book"+ident);
     newContainer("title",ident,newBookContainer,"div");
@@ -58,10 +58,10 @@ function newContainer(containerClassName,ident,parentContainer,elem) {
     parentContainer.appendChild(dataContainer);
 }
 
-function BookTitle(book,ident) {
+function bookTitle(book,ident) {
     document.getElementById("title"+ident).textContent=book.title;
 }
-function BookInfo(book,ident) {
+function bookInfo(book,ident) {
     document.getElementById("info"+ident).textContent=book.info();
 }
 
@@ -87,7 +87,7 @@ function toggleInfoDisplay(book) {
 } 
 
 function clickDeleteBook(ident) {
-    document.getElementById("book"+ident).addEventListener("click",evt=> {
+    document.getElementById("button"+ident).addEventListener("click",evt=> {
         deleteBook(evt.target);
     })
 }
