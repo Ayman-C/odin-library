@@ -28,7 +28,6 @@ function initDisplay() {
 
 function displayAllBooks(library) {
     for (let book in library) {
-        console.log(book)
         displayBook(library[book],book)
     }
 }
@@ -39,19 +38,21 @@ function displayBook(book,ident) {
     BookInfo(book,ident);
     hideBookInfo(ident);
     clickDisplayInfo(ident);
+   // clickDeleteBook(ident);
 }
 
-//Structure DOM elements for book data displayed in two divs title & info within a book div  
+//Structure DOM elements for book data displayed in two divs title & info and a delete button within a book div  
 function BookContainer(ident) {
-    newContainer("book",ident,bookShelf);
+    newContainer("book",ident,bookShelf,"div");
     newBookContainer=document.querySelector("#book"+ident);
-    newContainer("title",ident,newBookContainer);
-    newContainer("info",ident,newBookContainer);
+    newContainer("title",ident,newBookContainer,"div");
+    newContainer("info",ident,newBookContainer,"div");
+    newContainer("delete",ident,newBookContainer,"button")
 }
 
 //Create div container with attrivutes
-function newContainer(containerClassName,ident,parentContainer) {
-    let dataContainer=document.createElement("div");
+function newContainer(containerClassName,ident,parentContainer,elem) {
+    let dataContainer=document.createElement(elem);
     dataContainer.classList.add(containerClassName);
     dataContainer.id=containerClassName+ident;
     parentContainer.appendChild(dataContainer);
@@ -85,13 +86,27 @@ function toggleInfoDisplay(book) {
     }
 } 
 
-//Create book from Form using constructor, update myLibrary
+function clickDeleteBook(ident) {
+    document.getElementById("book"+ident).addEventListener("click",evt=> {
+        deleteBook(evt.target);
+    })
+}
+
+function deleteBook(book) {
+    document.getElementById(book.id).parentElement.remove();
+} 
+
+//Create book from Form using constructor, update myLibrary if not duplicate
 function clickSubmitBook() {
     submitButton.addEventListener("click",function() {
-        console.log("submit clicked")
         let newBook= new Book(...retrieveInputs());
-        addBookToLibrary(newBook);
-        displayBook(newBook,myLibrary.length);
+        if (isDuplicate(newBook)){
+            alertDuplicate(newBook.title);
+        }
+        else {
+            addToLibrary(newBook);
+            displayBook(newBook,myLibrary.length);
+        }
     })
 }
 
@@ -105,6 +120,17 @@ function retrieveInputs() {
     return inputArray;
 }
 
-function addBookToLibrary(book) {
-    return myLibrary.includes(book) ? myLibrary : myLibrary.push(book)
+function addToLibrary(book) {
+    myLibrary.push(book)
   }
+
+function isDuplicate(newBook) {
+    for (book in myLibrary) {
+        if(myLibrary[book].title===newBook.title) { return true }
+    }
+    return false
+}
+
+function alertDuplicate(title) {
+    alert(`${title} already exists in the database`);
+}
