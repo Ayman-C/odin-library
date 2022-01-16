@@ -51,10 +51,10 @@ function bookContainer(ident) {
 }
 
 //Create div container with attrivutes
-function newContainer(containerClassName,ident,parentContainer,elem) {
+function newContainer(containerName,ident,parentContainer,elem) {
     let dataContainer=document.createElement(elem);
-    dataContainer.classList.add(containerClassName);
-    dataContainer.id=containerClassName+ident;
+    dataContainer.classList.add(containerName);
+    dataContainer.id=containerName+ident;
     parentContainer.appendChild(dataContainer);
 }
 
@@ -87,7 +87,7 @@ function toggleInfoDisplay(book) {
 } 
 
 function clickDeleteBook(ident) {
-    document.getElementById("button"+ident).addEventListener("click",evt=> {
+    document.getElementById("delete"+ident).addEventListener("click",evt=> {
         deleteBook(evt.target);
     })
 }
@@ -134,3 +134,10 @@ function isDuplicate(newBook) {
 function alertDuplicate(title) {
     alert(`${title} already exists in the database`);
 }
+
+// function deleteFromLibrary(unwantedBook) {
+//     for (book in myLibrary) {
+//         if(myLibrary[book].title===newBook.title) { return true }
+//     }
+//     return false
+// }
