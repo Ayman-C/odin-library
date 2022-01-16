@@ -105,13 +105,24 @@ function toggleInfoDisplay(book) {
 function clickDeleteBook(ident) {
     document.getElementById("delete"+ident).addEventListener("click",evt=> {
         deleteFromLibrary(getTextContent(changeIdPrefix(evt.target.id,"title")))
-        deleteBook(evt.target);
+        deleteBook(changeIdPrefix(evt.target.id,"book"));
     })
 }
 
-function deleteBook(book) {
-    document.getElementById(book.id).parentElement.remove();
+function deleteBook(bookId) {
+    document.getElementById(bookId).remove();
 } 
+
+// function clickReadBook(ident) {
+//     document.getElementById("read"+ident).addEventListener("click",evt=> {
+//       //  deleteFromLibrary(getTextContent(changeIdPrefix(evt.target.id,"title")))
+//         //deleteBook(evt.target);
+//     })
+// }
+
+// function updateBookRead(bookTitle) {
+
+// }
 
 //Create book from Form using constructor, update myLibrary if not duplicate
 function clickSubmitBook() {
