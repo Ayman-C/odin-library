@@ -40,6 +40,7 @@ function displayBook(book,ident) {
     bookTitle(book,ident);
     bookInfo(book,ident);
     hideBookInfo(ident);
+    ReadButtonContent(book,ident);
     clickDisplayInfo(ident);
     clickDeleteBook(ident);
 }
@@ -48,10 +49,14 @@ function displayBook(book,ident) {
 function bookContainer(ident) {
     newContainer("book",ident,bookShelf,"div");
     newBookContainer=document.querySelector("#book"+ident);
-    newContainer("title",ident,newBookContainer,"div");
-    newContainer("info",ident,newBookContainer,"div");
-    newContainer("read",ident,newBookContainer,"button");
-    newContainer("delete",ident,newBookContainer,"button");
+    newContainer("textContainer",ident,newBookContainer,"div");
+    newtextContainer=document.querySelector("#textContainer"+ident);
+    newContainer("title",ident,newtextContainer,"div");
+    newContainer("info",ident,newtextContainer,"div");
+    newContainer("buttonContainer",ident,newBookContainer,"div");
+    newButtonContainer=document.querySelector("#buttonContainer"+ident);
+    newContainer("read",ident,newButtonContainer,"button");
+    newContainer("delete",ident,newButtonContainer,"button");
     delButtonContent(ident);
 }
 
@@ -71,6 +76,9 @@ function bookInfo(book,ident) {
 }
 function delButtonContent(ident) {
     document.getElementById("delete"+ident).textContent="X";
+}
+function ReadButtonContent(book,ident) {
+    document.getElementById("read"+ident).textContent=book.read;
 }
 
 function hideBookInfo(ident) {
