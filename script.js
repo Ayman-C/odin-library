@@ -145,7 +145,7 @@ function alertDuplicate(title) {
 }
 
 function deleteFromLibrary(titleToDelete) {
-    myLibrary=myLibrary.filter(function(item) { return item.title===titleToDelete})
+    myLibrary=myLibrary.filter(function(item) { return item.title!==titleToDelete})
 }
 function changeIdPrefix(oldId,newPrefix) {
     return newPrefix+oldId.replace(/\D/g,"");
