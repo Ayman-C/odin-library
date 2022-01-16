@@ -5,7 +5,10 @@ function Book(title,author,pages,read) {
     this.read=read ? "read" : "not read yet";
 }
 Book.prototype.info=function() {
-    return `This book is by ${this.author}, ${this.pages} pages, ${this.read}`
+    return `This book is by ${this.author}, ${this.pages} pages, ${this.read}`;
+}
+Book.prototype.toggleRead=function() {
+    return this.read=!this.read;
 }
 
 //let myLibrary= [];
@@ -88,6 +91,7 @@ function toggleInfoDisplay(book) {
 
 function clickDeleteBook(ident) {
     document.getElementById("delete"+ident).addEventListener("click",evt=> {
+        deleteFromLibrary(getTextContent(changeIdPrefix(evt.target.id,"title")))
         deleteBook(evt.target);
     })
 }
@@ -99,7 +103,7 @@ function deleteBook(book) {
 //Create book from Form using constructor, update myLibrary if not duplicate
 function clickSubmitBook() {
     submitButton.addEventListener("click",function() {
-        let newBook= new Book(...retrieveInputs());
+        let newBook= new Book(...getInputs());
         if (isDuplicate(newBook)){
             alertDuplicate(newBook.title);
         }
@@ -111,7 +115,7 @@ function clickSubmitBook() {
 }
 
 //Get inputs from Form
-function retrieveInputs() { 
+function getInputs() { 
     let inputArray=[];
     for (let i=0; i <inputs.length-1;i++) {
         inputArray[i]=inputs[i].value;
@@ -135,9 +139,13 @@ function alertDuplicate(title) {
     alert(`${title} already exists in the database`);
 }
 
-// function deleteFromLibrary(unwantedBook) {
-//     for (book in myLibrary) {
-//         if(myLibrary[book].title===newBook.title) { return true }
-//     }
-//     return false
-// }
+function deleteFromLibrary(titleToDelete) {
+    myLibrary=myLibrary.filter(function(item) { return item.title===titleToDelete})
+}
+function changeIdPrefix(oldId,newPrefix) {
+    return newPrefix+oldId.replace(/\D/g,"");
+}
+
+function getTextContent(id) {
+    return document.getElementById(id).textContent;
+}
