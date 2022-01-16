@@ -22,15 +22,15 @@ p {
 .newBookForm {    
     width: 17%;
     margin: 0 0.75%;
- 
 }
 li {
     display: flex;
     flex-direction: row;
     justify-content:space-between;
     margin-top: 5%;
+    flex-wrap: wrap;
 }
-input , #submitData{
+input , #submitData, .read{
     border-radius: 6px;
     border-style: none;
 }
@@ -75,12 +75,25 @@ ul {
     font-weight: bold;
     border-color: black;
     border-style: double;
-    border-radius: 100%;
-    width: 1.25%;
+    border-radius: 50%;
+    min-width: 3vh;
+    min-height: 3vh;
+    align-self: flex-start;
+    
+}
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
 }
 
-.read{
-
+.read {
+    align-self: flex-start;
+    width: 15%;
+    height:20px;
+    background-color: lightblue;
+    color: white;
+    font-weight: bold;
 }
 
 
