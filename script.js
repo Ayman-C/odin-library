@@ -84,6 +84,7 @@ function delButtonContent(ident) {
 }
 function ReadButtonContent(book,ident) {
     document.getElementById("read"+ident).textContent=isRead[book.read];
+    readButtonColor(document.getElementById("read"+ident),book.read);
 }
 
 function hideBookInfo(ident) {
@@ -126,6 +127,7 @@ function clickUpdateRead(ident) {
         updateLibrary("optional","read",bookIdent,myLibrary);
         evt.target.textContent=isRead[myLibrary[bookIdent].read];
         document.getElementById(changeIdPrefix(evt.target.id,"info")).textContent=myLibrary[bookIdent].info();;
+        readButtonColor(evt.target,myLibrary[bookIdent].read);
     })
 }
 
@@ -189,9 +191,9 @@ function getTextContent(id) {
     return document.getElementById(id).textContent;
 }
 
-function readButtonColor(readStatus) {
-
-
+function readButtonColor(element,isRead) {
+    console.log(isRead)
+    isRead ? element.style.backgroundColor="RGB(247,182,120)" : element.style.backgroundColor="RGB(190,210,215)";
 }
 
 
