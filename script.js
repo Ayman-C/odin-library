@@ -2,13 +2,16 @@ function Book(title,author,pages,read) {
     this.title=title;
     this.author=author;
     this.pages=pages;
-    this.read=read ? "read" : "not read";
+    //this.read=read ? "read" : "not read";
+    this.read=read; //true or false
 }
 Book.prototype.info=function() {
-    return `This book is by ${this.author}, ${this.pages} pages, ${this.read}`;
+    //return `This book is by ${this.author}, ${this.pages} pages, ${this.read}`;
+    return `This book is by ${this.author}, ${this.pages} pages.`;
 }
 Book.prototype.toggleRead=function() {
-    return this.read = (this.read === "read") ? "not read" : "read";
+    //return this.read = (this.read === "read") ? "not read" : "read";
+    return this.read = !this.read;
 }
 
 //let myLibrary= [];
@@ -18,6 +21,7 @@ const sample3= new Book("The Sound and the Fury","William Faulkner","326",false)
 let myLibrary= [sample1,sample2,sample3];
 
 // Generates HTML elements for each book 
+const isRead={true:"read" , false:"not read"};
 const bookShelf=document.querySelector(".bookShelf");
 const inputs=document.getElementsByName("inputs");
 const submitButton=document.getElementById("submitData");
@@ -79,7 +83,7 @@ function delButtonContent(ident) {
     document.getElementById("delete"+ident).textContent="X";
 }
 function ReadButtonContent(book,ident) {
-    document.getElementById("read"+ident).textContent=book.read;
+    document.getElementById("read"+ident).textContent=isRead[book.read];
 }
 
 function hideBookInfo(ident) {
@@ -120,7 +124,7 @@ function clickUpdateRead(ident) {
         let bookIdent=findInLibrary(bookTitle);
         
         updateLibrary("optional","read",bookIdent,myLibrary);
-        evt.target.textContent=myLibrary[bookIdent].read;
+        evt.target.textContent=isRead[myLibrary[bookIdent].read];
         document.getElementById(changeIdPrefix(evt.target.id,"info")).textContent=myLibrary[bookIdent].info();;
     })
 }
@@ -184,3 +188,10 @@ function changeIdPrefix(oldId,newPrefix) {
 function getTextContent(id) {
     return document.getElementById(id).textContent;
 }
+
+function readButtonColor(readStatus) {
+
+
+}
+
+
