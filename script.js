@@ -2,13 +2,13 @@ function Book(title,author,pages,read) {
     this.title=title;
     this.author=author;
     this.pages=pages;
-    this.read=read ? "read" : "not read yet";
+    this.read=read ? "read" : "not read";
 }
 Book.prototype.info=function() {
     return `This book is by ${this.author}, ${this.pages} pages, ${this.read}`;
 }
 Book.prototype.toggleRead=function() {
-    return this.read=!this.read;
+    return this.read = (this.read === "read") ? "not read" : "read";
 }
 
 //let myLibrary= [];
@@ -43,6 +43,7 @@ function displayBook(book,ident) {
     ReadButtonContent(book,ident);
     clickDisplayInfo(ident);
     clickDeleteBook(ident);
+    clickUpdateRead(ident);
 }
 
 //Structure DOM elements for book data displayed in two divs title & info and a delete button within a book div  
@@ -113,16 +114,26 @@ function deleteBook(bookId) {
     document.getElementById(bookId).remove();
 } 
 
-// function clickReadBook(ident) {
-//     document.getElementById("read"+ident).addEventListener("click",evt=> {
-//       //  deleteFromLibrary(getTextContent(changeIdPrefix(evt.target.id,"title")))
-//         //deleteBook(evt.target);
-//     })
-// }
+function clickUpdateRead(ident) {
+    document.getElementById("read"+ident).addEventListener("click",evt=> {
+        let bookTitle=getTextContent(changeIdPrefix(evt.target.id,"title"));
+        let bookIdent=findInLibrary(bookTitle);
+        
+        updateLibrary("optional","read",bookIdent,myLibrary);
+        evt.target.textContent=myLibrary[bookIdent].read;
+        document.getElementById(changeIdPrefix(evt.target.id,"info")).textContent=myLibrary[bookIdent].info();;
+    })
+}
 
-// function updateBookRead(bookTitle) {
+function updateLibrary(data,dataField,bookIdent,library) {
+    dataField==="read" ? library[bookIdent].toggleRead() : library[bookIdent][dataField]=data;
+ }
 
-// }
+ function findInLibrary(bookTitle) {
+    for (book in myLibrary) {
+        if(myLibrary[book].title===bookTitle) { return book }
+    }
+}
 
 //Create book from Form using constructor, update myLibrary if not duplicate
 function clickSubmitBook() {
