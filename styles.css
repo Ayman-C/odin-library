@@ -122,7 +122,7 @@ ul {
     align-self: flex-start;
     width: 15%;
     height:20px;
-    background-color: rgb(230,213,213);
+    background-color: rgb(247,182,120);
     color: white;
     font-weight: bold;
 }
@@ -170,11 +170,11 @@ ul {
 }
 
 input:checked + .slider {
-  background-color: rgb(230,213,213);
+  background-color: rgb(247,182,120);;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px rgb(230,213,213);
+  box-shadow: 0 0 1px rgb(190,210,215);
 }
 
 input:checked + .slider:before {
