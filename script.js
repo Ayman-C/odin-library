@@ -170,7 +170,7 @@ function EmptyForm() {
     return (`Boxes in red are required!`);
 }
 function notValidNumber() {
-    return (`Please enter a valid number of pages!)`);
+    return (`Please enter a valid number of pages!`);
 }
 //Get inputs from Form
 function getInputs() { 
