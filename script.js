@@ -154,6 +154,65 @@ function clickSubmitBook() {
         }
     })
 }
+function clickSubmitBook() {
+    submitButton.addEventListener("click",function() {
+        let newBook= new Book(...getInputs());
+        if (dataValidation(newBook)){
+            addToLibrary(newBook);
+            displayBook(newBook,myLibrary.length);
+        }
+    })
+}
+
+function dataValidation(newBook) {
+    if (isDuplicate(newBook)){
+        alertDuplicate(newBook.title);
+        return false
+    }
+    else if (isEmpty(newBook)){
+        alertEmptyForm(isEmpty(newBook))
+        return false
+    }
+    else if (!isValidNumber(newBook.pages)) {
+        alertValidNumber()
+        return false
+    }
+    else { 
+        return true
+    }
+}
+
+function isEmpty(newBook) {
+    for (data in newBook) {
+        if(newBook[data]==="") { return true };
+    }
+    return false;
+}
+
+function isDuplicate(newBook) {
+    for (book in myLibrary) {
+        if(myLibrary[book].title===newBook.title) { return true }
+    }
+    return false
+}
+
+//check for positive integer
+function isValidNumber(bookPages) {
+   return /^\d+$/.test(bookPages) ? true : false 
+}
+
+function alertDuplicate(title) {
+    alert(`${title} already exists in the database`);
+}
+
+function alertEmptyForm() {
+    alert(`Boxes in red are required!`);
+}
+
+function alertValidNumber() {
+    alert(`Please enter a valid number of pages!\n(must be an integer >0)`);
+}
+
 
 //Get inputs from Form
 function getInputs() { 
@@ -169,16 +228,7 @@ function addToLibrary(book) {
     myLibrary.push(book)
   }
 
-function isDuplicate(newBook) {
-    for (book in myLibrary) {
-        if(myLibrary[book].title===newBook.title) { return true }
-    }
-    return false
-}
 
-function alertDuplicate(title) {
-    alert(`${title} already exists in the database`);
-}
 
 function deleteFromLibrary(titleToDelete) {
     myLibrary=myLibrary.filter(function(item) { return item.title!==titleToDelete})
@@ -192,7 +242,6 @@ function getTextContent(id) {
 }
 
 function readButtonColor(element,isRead) {
-    console.log(isRead)
     isRead ? element.style.backgroundColor="RGB(247,182,120)" : element.style.backgroundColor="RGB(190,210,215)";
 }
 
