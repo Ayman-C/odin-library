@@ -155,18 +155,18 @@ function clickSubmitBook() {
 function dataValidation(newBook) {
     if (isDuplicate(newBook)){
         alertDuplicate(newBook.title);
-        return false
-    }
-    else if (isEmpty(newBook)){
-        alertEmptyForm(isEmpty(newBook))
-        return false
+        return false;
     }
     else if (!isValidNumber(newBook.pages)) {
-        alertValidNumber()
-        return false
+        alertValidNumber();
+        return false;
+    }
+    else if (isEmpty(newBook)){
+        alertEmptyForm(isEmpty(newBook));
+        return false;
     }
     else { 
-        return true
+        return true;
     }
 }
 
