@@ -2,15 +2,12 @@ function Book(title,author,pages,read) {
     this.title=title;
     this.author=author;
     this.pages=pages;
-    //this.read=read ? "read" : "not read";
     this.read=read; //true or false
 }
 Book.prototype.info=function() {
-    //return `This book is by ${this.author}, ${this.pages} pages, ${this.read}`;
     return `This book is by ${this.author}, ${this.pages} pages.`;
 }
 Book.prototype.toggleRead=function() {
-    //return this.read = (this.read === "read") ? "not read" : "read";
     return this.read = !this.read;
 }
 
@@ -44,7 +41,8 @@ function displayBook(book,ident) {
     bookTitle(book,ident);
     bookInfo(book,ident);
     hideBookInfo(ident);
-    ReadButtonContent(book,ident);
+    readButtonContent(book,ident);
+    delButtonContent(ident);
     clickDisplayInfo(ident);
     clickDeleteBook(ident);
     clickUpdateRead(ident);
@@ -62,7 +60,6 @@ function bookContainer(ident) {
     newButtonContainer=document.querySelector("#buttonContainer"+ident);
     newContainer("read",ident,newButtonContainer,"button");
     newContainer("delete",ident,newButtonContainer,"button");
-    delButtonContent(ident);
 }
 
 //Create div container with attrivutes
@@ -82,65 +79,51 @@ function bookInfo(book,ident) {
 function delButtonContent(ident) {
     document.getElementById("delete"+ident).textContent="X";
 }
-function ReadButtonContent(book,ident) {
+function readButtonContent(book,ident) {
     document.getElementById("read"+ident).textContent=isRead[book.read];
     readButtonColor(document.getElementById("read"+ident),book.read);
 }
-
 function hideBookInfo(ident) {
     document.getElementById("info"+ident).style.display="none";
 }
-
 //Use on click eventListener to toggle book's info display
 function clickDisplayInfo(ident) {
     document.getElementById("title"+ident).addEventListener("click",evt=> {
         toggleInfoDisplay(evt.target);
     })
 }
-
 function toggleInfoDisplay(book) {
-    info=document.getElementById(book.id).nextElementSibling;
-    if(info.style.display==="none"){
-        info.style.display="block";    
-    }
-    else {
-        info.style.display="none";
-    }
+    let info = document.getElementById(book.id).nextElementSibling;
+    let currentDisplay = info.style.display;
+    info.style.display = currentDisplay==="none" ? "block" : "none";
 } 
-
 function clickDeleteBook(ident) {
     document.getElementById("delete"+ident).addEventListener("click",evt=> {
         deleteFromLibrary(getTextContent(changeIdPrefix(evt.target.id,"title")))
         deleteBook(changeIdPrefix(evt.target.id,"book"));
     })
 }
-
 function deleteBook(bookId) {
     document.getElementById(bookId).remove();
 } 
-
 function clickUpdateRead(ident) {
     document.getElementById("read"+ident).addEventListener("click",evt=> {
         let bookTitle=getTextContent(changeIdPrefix(evt.target.id,"title"));
-        let bookIdent=findInLibrary(bookTitle);
-        
+        let bookIdent=findInLibrary(bookTitle);       
         updateLibrary("optional","read",bookIdent,myLibrary);
         evt.target.textContent=isRead[myLibrary[bookIdent].read];
         document.getElementById(changeIdPrefix(evt.target.id,"info")).textContent=myLibrary[bookIdent].info();;
         readButtonColor(evt.target,myLibrary[bookIdent].read);
     })
 }
-
 function updateLibrary(data,dataField,bookIdent,library) {
     dataField==="read" ? library[bookIdent].toggleRead() : library[bookIdent][dataField]=data;
  }
-
  function findInLibrary(bookTitle) {
     for (book in myLibrary) {
         if(myLibrary[book].title===bookTitle) { return book }
     }
 }
-
 //Create book from Form using constructor, update myLibrary if not duplicate
 function clickSubmitBook() {
     submitButton.addEventListener("click",function() {
@@ -151,30 +134,11 @@ function clickSubmitBook() {
         }
     })
 }
-
-// function dataValidation(newBook) {
-//     if (isDuplicate(newBook)){
-//         alertDuplicate(newBook.title);
-//         return false;
-//     }
-//     else if (!isValidNumber(newBook.pages)) {
-//         alertValidNumber();
-//         return false;
-//     }
-//     else if (isEmpty(newBook)){
-//         alertEmptyForm(isEmpty(newBook));
-//         return false;
-//     }
-//     else { 
-//         return true;
-//     }
-// }
 function dataValidation(newBook) {
     let errorString="";
     errorString+= isDuplicate(newBook) ? "*"+Duplicate(newBook.title)+"\n" : ""
     errorString+= !isValidNumber(newBook.pages) ? "*"+notValidNumber()+"\n" : ""
     errorString+= isEmpty(newBook) ? "*"+EmptyForm()+"\n" : ""
-    
     if (errorString==="") {
         return true;
     }
@@ -183,50 +147,31 @@ function dataValidation(newBook) {
         return false;
     }
 }
-
 function isEmpty(newBook) {
     for (data in newBook) {
         if(newBook[data]==="") { return true };
     }
     return false;
 }
-
 function isDuplicate(newBook) {
     for (book in myLibrary) {
         if(myLibrary[book].title===newBook.title) { return true }
     }
     return false
 }
-
 //check for positive integer
 function isValidNumber(bookPages) {
    return /^\d+$/.test(bookPages) ? true : false 
 }
-
-// function alertDuplicate(title) {
-//     alert(`${title} already exists in the database`);
-// }
-
-// function alertEmptyForm() {
-//     alert(`Boxes in red are required!`);
-// }
-
-// function alertValidNumber() {
-//     alert(`Please enter a valid number of pages!\n(must be an integer >0)`);
-// }
 function Duplicate(title) {
     return (`${title} already exists in the database`);
 }
-
 function EmptyForm() {
     return (`Boxes in red are required!`);
 }
-
 function notValidNumber() {
     return (`Please enter a valid number of pages!)`);
 }
-
-
 //Get inputs from Form
 function getInputs() { 
     let inputArray=[];
@@ -236,24 +181,18 @@ function getInputs() {
     inputArray[inputs.length-1]=inputs[inputs.length-1].checked;
     return inputArray;
 }
-
 function addToLibrary(book) {
     myLibrary.push(book)
-  }
-
-
-
+}
 function deleteFromLibrary(titleToDelete) {
     myLibrary=myLibrary.filter(function(item) { return item.title!==titleToDelete})
 }
 function changeIdPrefix(oldId,newPrefix) {
     return newPrefix+oldId.replace(/\D/g,"");
 }
-
 function getTextContent(id) {
     return document.getElementById(id).textContent;
 }
-
 function readButtonColor(element,isRead) {
     isRead ? element.style.backgroundColor="RGB(247,182,120)" : element.style.backgroundColor="RGB(190,210,215)";
 }
