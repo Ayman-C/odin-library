@@ -145,18 +145,6 @@ function updateLibrary(data,dataField,bookIdent,library) {
 function clickSubmitBook() {
     submitButton.addEventListener("click",function() {
         let newBook= new Book(...getInputs());
-        if (isDuplicate(newBook)){
-            alertDuplicate(newBook.title);
-        }
-        else {
-            addToLibrary(newBook);
-            displayBook(newBook,myLibrary.length);
-        }
-    })
-}
-function clickSubmitBook() {
-    submitButton.addEventListener("click",function() {
-        let newBook= new Book(...getInputs());
         if (dataValidation(newBook)){
             addToLibrary(newBook);
             displayBook(newBook,myLibrary.length);
