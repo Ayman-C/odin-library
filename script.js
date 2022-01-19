@@ -152,21 +152,35 @@ function clickSubmitBook() {
     })
 }
 
+// function dataValidation(newBook) {
+//     if (isDuplicate(newBook)){
+//         alertDuplicate(newBook.title);
+//         return false;
+//     }
+//     else if (!isValidNumber(newBook.pages)) {
+//         alertValidNumber();
+//         return false;
+//     }
+//     else if (isEmpty(newBook)){
+//         alertEmptyForm(isEmpty(newBook));
+//         return false;
+//     }
+//     else { 
+//         return true;
+//     }
+// }
 function dataValidation(newBook) {
-    if (isDuplicate(newBook)){
-        alertDuplicate(newBook.title);
-        return false;
-    }
-    else if (!isValidNumber(newBook.pages)) {
-        alertValidNumber();
-        return false;
-    }
-    else if (isEmpty(newBook)){
-        alertEmptyForm(isEmpty(newBook));
-        return false;
-    }
-    else { 
+    let errorString="";
+    errorString+= isDuplicate(newBook) ? "*"+Duplicate(newBook.title)+"\n" : ""
+    errorString+= !isValidNumber(newBook.pages) ? "*"+notValidNumber()+"\n" : ""
+    errorString+= isEmpty(newBook) ? "*"+EmptyForm()+"\n" : ""
+    
+    if (errorString==="") {
         return true;
+    }
+    else {
+        alert("********************************************\n"+errorString+"\n********************************************");
+        return false;
     }
 }
 
@@ -189,16 +203,27 @@ function isValidNumber(bookPages) {
    return /^\d+$/.test(bookPages) ? true : false 
 }
 
-function alertDuplicate(title) {
-    alert(`${title} already exists in the database`);
+// function alertDuplicate(title) {
+//     alert(`${title} already exists in the database`);
+// }
+
+// function alertEmptyForm() {
+//     alert(`Boxes in red are required!`);
+// }
+
+// function alertValidNumber() {
+//     alert(`Please enter a valid number of pages!\n(must be an integer >0)`);
+// }
+function Duplicate(title) {
+    return (`${title} already exists in the database`);
 }
 
-function alertEmptyForm() {
-    alert(`Boxes in red are required!`);
+function EmptyForm() {
+    return (`Boxes in red are required!`);
 }
 
-function alertValidNumber() {
-    alert(`Please enter a valid number of pages!\n(must be an integer >0)`);
+function notValidNumber() {
+    return (`Please enter a valid number of pages!)`);
 }
 
 
