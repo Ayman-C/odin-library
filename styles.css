@@ -15,8 +15,8 @@ footer {
 .libraryContainer {
     display:flex;
     flex:1;
-    margin-right: 5%;
-    margin-left: 3%;
+    margin-right: 1.5%;
+    margin-left: 1.5%;
 }
 h1 {
     font-size: 400%;
@@ -30,7 +30,7 @@ p{
 p , h1{ 
     margin-top: 0.5%;
     margin-bottom: 0;
-    margin-left:30.25%;
+    margin-left:29.75%;
 }
 .newBookForm {    
     width: 25%;
@@ -66,17 +66,8 @@ ul {
     letter-spacing:2px;
 }
 
-/* #submitData:hover {
-    margin-left: auto;
-    width: 100%;
-    height:50px;
-    background-color: #33a13d;
-    color:white;
-    font-weight: bold;
-} */
-
 .bookShelf {
-    width: 70%;
+    width: 73%;
     background-color: white;
     color: rgb(120,140,157);;
     border-radius: 6px;
@@ -91,9 +82,7 @@ ul {
     font-size: large;
     font-weight: bold;
 }
-/* .book :hover{
-    color:rgb(36,65,38);;
-} */
+
 .info{
     font-style: italic;
     font-weight: lighter;
@@ -120,7 +109,7 @@ ul {
 
 .read {
     align-self: flex-start;
-    width: 15%;
+    width: 20%;
     height:20px;
     background-color: rgb(247,182,120);
     color: white;
