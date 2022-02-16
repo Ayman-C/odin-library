@@ -1,15 +1,29 @@
-function Book(title,author,pages,read) {
-    this.title=title;
-    this.author=author;
-    this.pages=pages;
-    this.read=read; //true or false
-}
-Book.prototype.info=function() {
+// function Book(title,author,pages,read) {
+//     this.title=title;
+//     this.author=author;
+//     this.pages=pages;
+//     this.read=read; //true or false
+// }
+// Book.prototype.info=function() {
+//     return `This book is by ${this.author}, ${this.pages} pages.`;
+// }
+// Book.prototype.toggleRead=function() {
+//     return this.read = !this.read;
+// }
+ class Book {
+    constructor (title,author,pages,read) {
+        this.title=title;
+        this.author=author;
+        this.pages=pages;
+        this.read=read; //true or false
+    }
+    info() {
     return `This book is by ${this.author}, ${this.pages} pages.`;
 }
-Book.prototype.toggleRead=function() {
+    toggleRead() {
     return this.read = !this.read;
 }
+ }
 
 //let myLibrary= [];
 const sample1= new Book("To Kill a Mockingbird","Harper Lee","281",true);
